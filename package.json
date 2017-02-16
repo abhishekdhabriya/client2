@@ -67,19 +67,18 @@
     "babel-eslint": "^6.1.2",
     "babel-plugin-transform-runtime": "^6.22.0",
     "babel-runtime": "^6.22.0",
-    "eslint": "^3.15.0"
+    "eslint": "^3.15.0",
+    "webpack-config-utils": "^2.0.0"
   },
-   "scripts": {
+  "scripts": {
     "predeploy": "npm run build",
     "deploy": "./scripts/deploy",
     "prebuild": "rimraf dist",
-    "build": "webpack --env.prod -p",
-    "postbuild": "cpy favicon.ico dist",
+    "build": "webpack -p --env.prod",
     "prebuild:dev": "rimraf dist",
     "build:dev": "webpack --env.dev",
-    "postbuild:dev": "cpy favicon.ico dist",
     "start": "http-server dist",
-    "dev": "webpack-dev-server",
+    "dev": "webpack-dev-server --env.dev",
     "debug": "node-nightly --inspect --debug-brk node_modules/.bin/webpack --env.debug",
     "debug:dev": "npm run debug -- --env.dev",
     "debug:prod": "npm run debug -- --env.prod",

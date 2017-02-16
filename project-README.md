@@ -83,3 +83,9 @@ with npm script we can pass arrguments to the script by using --
 npm run build:dev -s -- dsdasd  // dsdasd will be passed to build:dev script
 
 npm run build:dev -s -- --watch // will watch for any change in our file.
+
+-p is the production flag.
+
+webpack internally uses a yargs module which converts --parameters into properties.
+npm run build -p --env.prod // prod will then become the property of the the env object.
+pre and post are the lifecycle hooks 

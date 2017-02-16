@@ -1,3 +1,14 @@
+// const _ = require('lodash');
+// const client2 = require('./client_2');
+
+// console.log(client2.test1());
+
+// console.log('*********HI HI Hi *******');
+
+// console.log(_.each(client2.object, function(element){
+//     console.log(element);
+// }));
+
 import "./client.scss";
 import ReactDOM from 'react-dom';
 
@@ -12,11 +23,11 @@ function main() {
 
 main();  // now everytime we load app the entire AppContainer component will be reloaded.
 
-if(module.hot){
-    // callback will be invoked whenever the app component changes. 
-    // either this component change or any of the sub component changes, 
-    module.hot.accept('./components/app', () => {
-        main();
-    });
-}
+// if(module.hot){
+//     // callback will be invoked whenever the app component changes. 
+//     // either this component change or any of the sub component changes, 
+//     module.hot.accept('./components/app', () => {
+//         main();
+//     });
+// }
 
