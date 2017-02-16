@@ -8,7 +8,7 @@ class AppContainer extends Component {
         super(props);
 
         this._click = this._click.bind(this);
-        
+
     }
 
     componentDidMount() {
@@ -18,7 +18,7 @@ class AppContainer extends Component {
     render() {
         return (
             <div>
-                <h1>Hey webpack -- show me again! </h1>
+                <h1>Hey webpack 2 -- HMR Rocks! </h1>
                 <button onClick={this._click}>Click again </button>
             </div>
         );
