@@ -1,0 +1,26 @@
+{
+    "extends" : "eslint:recommended",
+    "plugins" : [
+        "react"
+    ],
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "node": true,
+        "es6": true
+    },
+    "parser":"babel-eslint",
+    "rules": {
+        // "indent": [2, 4, {"indentSwitchCase": true}],
+        "semi" : ["error", "always"],
+        "no-console": "off",
+        "react/jsx-uses-react":"error",
+        "react/jsx-uses-vars":"error"
+    },
+    "globals": { // we define global variables which eslint shouldn't complain if eslint can't find the references.
+        "console": false,
+        "process": false,
+        "IS_PRODUCTION": false,
+        "IS_DEVELOPMENT": false
+    }
+}
