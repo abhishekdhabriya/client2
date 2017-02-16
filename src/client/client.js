@@ -1,14 +1,3 @@
-// const _ = require('lodash');
-// const client2 = require('./client_2');
-
-// console.log(client2.test1());
-
-// console.log('*********HI HI Hi *******');
-
-// console.log(_.each(client2.object, function(element){
-//     console.log(element);
-// }));
-
 import "./client.scss";
 import ReactDOM from 'react-dom';
 

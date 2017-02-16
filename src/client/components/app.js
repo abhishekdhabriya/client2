@@ -18,7 +18,7 @@ class AppContainer extends Component {
     render() {
         return (
             <div>
-                <h1>Hey webpack! </h1>
+                <h1>Hey webpack -- show me again! </h1>
                 <button onClick={this._click}>Click again </button>
             </div>
         );
