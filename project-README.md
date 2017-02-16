@@ -71,3 +71,15 @@ In terminal execute adhabriy$
 /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --remote-debugging-port=9222
 Press F5 to enable debug mode, make sure that the app is running the chrome browser and the developer tool is closed.
 
+------------------------------------------------------
+-- Frontend Masters Notes 
+
+npm run build:dev -s 
+// -s tells node to run in silent mode.
+
+webpack validator helps us to validate our webpack configuration file. For example if we mistakenly called output to outputs, then it will complain.
+
+with npm script we can pass arrguments to the script by using -- 
+npm run build:dev -s -- dsdasd  // dsdasd will be passed to build:dev script
+
+npm run build:dev -s -- --watch // will watch for any change in our file.
