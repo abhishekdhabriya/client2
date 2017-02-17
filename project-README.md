@@ -110,3 +110,13 @@ pre and post are the lifecycle hooks
 }
 
 --------------------------------------------
+
+
+Instrumentation __coverage__ on each line.
+Babel is pluggable using plugins.
+__coverage__ babel plugins add the coverage lines all over the code. 
+karma coverage plugins then read all that coverage line and read it into report.
+Before we had Istanbul but it didn't work with babel
+
+we can define certain plugins to run under cetain circumstances in babel
+Like if we need to run only in test env, then we can set the plugin under test. lookat .babelrc file for more details

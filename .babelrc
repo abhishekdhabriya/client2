@@ -7,5 +7,12 @@
         "transform-object-rest-spread",
         "transform-runtime"
         // "react-hot-loader/babel" // this plugins adds additional code in each of our components which will register those components with react hot loader.
-    ]
+    ],
+    "env" : { // babel looks at this to figure out what needs to run for a given environment
+        "test" : {  // this is like setting test ennironment.
+            "plugins" : [ // only gets run if the env property is set to test.
+               [ "__coverage__", {"ignore": "*.+(test|stub).*"}] // don't add coverage for test files.'
+            ]
+        }
+    }
 }
