@@ -131,3 +131,28 @@ ES5 code and hence webpack can't do tree shaking.
 
 So we need to turn off the module feature from Babel and let Webpack take care of modules. Since webpack understand ES6 code it can also apply treeshaking.
 
+---------------------------------------
+Code Splitting
+----------------------------------------
+
+ES6 and CommonJS modules resolves, they look at the index.js file in the folder, if package.json is available then it looks at the main property on the 
+package.json file and that's how it resolves the modules.
+
+// System will be global module and will be supported by browsers. Right now it's supported by Webpack.
+System.import('whatyouwantimporthere').then((thing) => {
+    console.log(thing.default); // This will behave a more like CommonJS import. and so we should use default as this is going to be default export
+    const renderGraph = thing.default;
+    renderGraph(graphArea, store);
+}).catch(){
+
+}
+
+// webpack will create the code splitting bundle for us. 
+// also we can use variable in the import statement 
+
+
+System.import('./facts/' + fact).then(setFactText);
+So in this case webpack will see that we are using /.facts/ facts folder and so all the potential combination can be found inside that folder
+so webpack will create a bundle for each of the files founde under /.facts/ folder.
+
+// How to handle module loading in browsers is still under talk.
