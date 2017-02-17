@@ -21,6 +21,9 @@
         "console": false,
         "process": false,
         "IS_PRODUCTION": false,
-        "IS_DEVELOPMENT": false
+        "IS_DEVELOPMENT": false,
+        "describe" : false,
+        "it": false,
+        "expect": false
     }
 }

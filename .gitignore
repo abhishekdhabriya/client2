@@ -3,3 +3,4 @@ build
 public/build
 config.js
 dist
+coverage

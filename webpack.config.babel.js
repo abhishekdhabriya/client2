@@ -6,7 +6,9 @@ const {getIfUtils} = require('webpack-config-utils');
 
 module.exports = (env) => { // this is a function so we can accept parameters here.
 
-    const {ifProd} = getIfUtils(env); // returns some functions which we can then invoke
+    console.log('**********');
+    console.log(env);
+    // const {ifProd} = getIfUtils(env); // returns some functions which we can then invoke
 
     return webpackValidator({
         context: resolve('src/client'),
@@ -19,7 +21,7 @@ module.exports = (env) => { // this is a function so we can accept parameters he
             // if we don't specify this then webpack assumes to servce up the bundle from / 
             pathinfo: true
         },
-        devtool: ifProd('source-map' : 'eval'),
+        // devtool: ifProd('source-map' : 'eval'),
         module: {
             loaders: [
                 {
