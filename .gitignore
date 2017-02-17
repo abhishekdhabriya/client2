@@ -4,3 +4,4 @@ public/build
 config.js
 dist
 coverage
+npm-debug.log

@@ -120,3 +120,13 @@ Before we had Istanbul but it didn't work with babel
 
 we can define certain plugins to run under cetain circumstances in babel
 Like if we need to run only in test env, then we can set the plugin under test. lookat .babelrc file for more details
+
+Tree Shaking only works with ES6 Modules.
+Tree shaking excludes exports from modules where it can be detected the export is not used.Uglify  then deletes the dead code.
+Treeshaking happens at static time and it will remove the code before the bundle.
+UnCss is similar to Treeshaking 
+
+Treeshaking is webpack2 feature and it happens when webpack can resolves the ES6 modules. Right now in our code babel is transpiling our ES6 modules to 
+ES5 code and hence webpack can't do tree shaking. 
+
+So we need to turn off the module feature from Babel and let Webpack take care of modules. Since webpack understand ES6 code it can also apply treeshaking.
