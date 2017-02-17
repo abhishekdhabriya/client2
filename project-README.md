@@ -130,3 +130,4 @@ Treeshaking is webpack2 feature and it happens when webpack can resolves the ES6
 ES5 code and hence webpack can't do tree shaking. 
 
 So we need to turn off the module feature from Babel and let Webpack take care of modules. Since webpack understand ES6 code it can also apply treeshaking.
+
