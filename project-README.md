@@ -162,3 +162,10 @@ Commons Chunking
 -----------------------
 
 Commons chunk for the app, like Vendor, React, D3 and so on.
+
+
+------------------------------
+Long term caching using inline manifest webpack plugin
+manifest webpack plugin will create a common chunk called manifest and it integrates html webpack plugin, this will inline the javascript code in 
+index.html, and basically it's setting the global variables for the mapping.
+

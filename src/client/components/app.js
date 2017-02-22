@@ -26,6 +26,7 @@ class AppContainer extends Component {
 
     _click() {
         console.log('this will');
+        console.log('only changing app code');
     }
 }
 export default AppContainer;

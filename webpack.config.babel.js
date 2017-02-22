@@ -4,6 +4,7 @@ const {getIfUtils, removeEmpty} = require('webpack-config-utils');
 const webpack = require('webpack');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 
 const vendor = ['lodash', 'react', 'react-dom']; // just telling webpack what it need to extract and put it in it's own bundle
 
@@ -55,11 +56,12 @@ module.exports = (env) => { // this is a function so we can accept parameters he
 
             // plugins
             // with plugins we create a new instance.
+            ifProd(new InlineManifestWebpackPlugin()),
             new HtmlWebpackPlugin({
                 template: './index.html'
             }),
             new ProgressBarPlugin(),
-            ifProd(new webpack.optimize.CommonsChunkPlugin({ name: 'vendor' })), // extracting vendor component and creating vendor.js file.
+            ifProd(new webpack.optimize.CommonsChunkPlugin({ name: ['vendor', 'manifest'] })), // extracting vendor component and creating vendor.js file.
             new webpack.DefinePlugin({ // define plugin allows us to define javascript variables in the resulting bundle as global variables that we can access.
                 'process.env': { // we are asking webpack to create a global javascript object 
                     NODE_ENV: `"${process.env.NODE_ENV} || 'development'"` // a property
