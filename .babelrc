@@ -1,6 +1,6 @@
 {
     "presets" : [
-        ["es2015", {"modules": false}], // first item is the name of the preset and second item is the preset options
+        ["es2015", {"modules": false, "loose": true}], // first item is the name of the preset and second item is the preset options
          "react"],
     "plugins" : [
         "syntax-class-properties",

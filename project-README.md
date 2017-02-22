@@ -156,3 +156,9 @@ So in this case webpack will see that we are using /.facts/ facts folder and so 
 so webpack will create a bundle for each of the files founde under /.facts/ folder.
 
 // How to handle module loading in browsers is still under talk.
+
+-----------------------
+Commons Chunking 
+-----------------------
+
+Commons chunk for the app, like Vendor, React, D3 and so on.
