@@ -5,8 +5,9 @@ const webpack = require('webpack');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
+const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 
-const vendor = ['lodash', 'react', 'react-dom']; // just telling webpack what it need to extract and put it in it's own bundle
+const vendor = ['lodash', 'react', 'react-dom', './client.scss']; // just telling webpack what it need to extract and put it in it's own bundle
 
 module.exports = (env) => { // this is a function so we can accept parameters here.
     const {ifProd} = getIfUtils(env); // returns some functions which we can then invoke
@@ -39,11 +40,19 @@ module.exports = (env) => { // this is a function so we can accept parameters he
                 },
                 {
                     test: /\.css$/,
-                    loader: 'style!css?sourceMap'  // ! is like and, apply cs loader first and then pipe it through style loader. ? is query string to the loader. asking css loader to enable sourcemaps
+                    loader: ExtractTextWebpackPlugin.extract({
+                        fallbackLoader: 'style',
+                        loader: 'css?sourceMap'
+                    })  
+                    // loader: 'style!css?sourceMap'  // ! is like and, apply cs loader first and then pipe it through style loader. ? is query string to the loader. asking css loader to enable sourcemaps
                 },
                 {
                     test: /\.scss$/,
-                    loader: 'style!css?sourceMap!sass?sourceMap'
+                     loader: ExtractTextWebpackPlugin.extract({
+                        fallbackLoader: 'style',
+                        loader: 'css?sourceMap!sass?sourceMap'
+                    })  
+                    // loader: 'style!css?sourceMap!sass?sourceMap'
                 },
                 {
                     test: /\.(png|jpg|jpeg|gif|woff|ttf|eot|svg|woff2)/,
@@ -56,6 +65,7 @@ module.exports = (env) => { // this is a function so we can accept parameters he
 
             // plugins
             // with plugins we create a new instance.
+            new ExtractTextWebpackPlugin(ifProd('styles.[name].[chunkhash].css', 'styles.[name].css')),
             ifProd(new InlineManifestWebpackPlugin()), 
             new HtmlWebpackPlugin({
                 template: './index.html'

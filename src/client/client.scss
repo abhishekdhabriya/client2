@@ -4,10 +4,3 @@ $fa-font-path: "~font-awesome/fonts"; // we need to override the font-awesome pa
 // ~ asking the sass compiler to look into the nod_modules folder
 @import '~font-awesome/scss/font-awesome';
 
-body {
-    background: #444;
-
-    h1 {
-        color: red;
-    }
-}
