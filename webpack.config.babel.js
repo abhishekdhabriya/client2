@@ -56,7 +56,7 @@ module.exports = (env) => { // this is a function so we can accept parameters he
 
             // plugins
             // with plugins we create a new instance.
-            ifProd(new InlineManifestWebpackPlugin()),
+            ifProd(new InlineManifestWebpackPlugin()), 
             new HtmlWebpackPlugin({
                 template: './index.html'
             }),
