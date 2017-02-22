@@ -3,6 +3,7 @@ const webpackValidator = require('webpack-validator');
 const {getIfUtils, removeEmpty} = require('webpack-config-utils');
 const webpack = require('webpack');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const vendor = ['lodash', 'react', 'react-dom']; // just telling webpack what it need to extract and put it in it's own bundle
 
@@ -12,13 +13,13 @@ module.exports = (env) => { // this is a function so we can accept parameters he
     const config = webpackValidator({
         context: resolve('src/client'),
         entry: {
-            app: './client.js',
-            vendor: vendor
+            vendor: vendor,
+            app: './client.js'
         },
         output: {
             path: resolve('dist'),
-            filename: 'bundle.[name].[chunkhash].js', // [name] is template name, refers to the key proprety of the entry block. like app and vendor
-            publicPath: '/dist/', // webpack uses this path to serve it's in memory bundle.
+            filename: ifProd('bundle.[name].[chunkhash].js', 'bundle.[name].js' ), // [name] is template name, refers to the key proprety of the entry block. like app and vendor
+            // publicPath: '/dist/', // webpack uses this path to serve it's in memory bundle.
             // some other loaders uses this path to put font's file and image files.
             // if we don't specify this then webpack assumes to servce up the bundle from / 
             pathinfo: true // 
@@ -54,6 +55,9 @@ module.exports = (env) => { // this is a function so we can accept parameters he
 
             // plugins
             // with plugins we create a new instance.
+            new HtmlWebpackPlugin({
+                template: './index.html'
+            }),
             new ProgressBarPlugin(),
             ifProd(new webpack.optimize.CommonsChunkPlugin({ name: 'vendor' })), // extracting vendor component and creating vendor.js file.
             new webpack.DefinePlugin({ // define plugin allows us to define javascript variables in the resulting bundle as global variables that we can access.
