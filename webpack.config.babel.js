@@ -1,29 +1,9 @@
 const {resolve} = require('path');  // resolve helps to resolve to an absolute path on the disk
 const webpackValidator = require('webpack-validator');
-const {getIfUtils} = require('webpack-config-utils');
+const {getIfUtils, removeEmpty} = require('webpack-config-utils');
 const webpack = require('webpack');
 
 const vendor = ['lodash', 'react', 'react-dom']; // just telling webpack what it need to extract and put it in it's own bundle
-
-
-// -------
-// plugins
-// with plugins we create a new instance.
-const plugins = [
-    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor'}), // extracting vendor component and creating vendor.js file.
-    new webpack.DefinePlugin({ // define plugin allows us to define javascript variables in the resulting bundle as global variables that we can access.
-        'process.env': { // we are asking webpack to create a global javascript object 
-            NODE_ENV: `"${process.env.NODE_ENV} || 'development'"` // a property
-        },
-        // IS_PRODUCTION: !isDevelopment, // by doing this we can now use IS_PRODUCTION in our own code as this will be available as a property of a global object 'process.env'
-        // IS_DEVELOPMENT: isDevelopment   // can be used in code as process.env.IS_DEVELOPMENT
-    }),
-    new webpack.ProvidePlugin({ // with provide plugin we can assign a variable which it will watch for in our code and if it isn't define anywhere then webpack will inject the value.
-        '$': 'jquery',   // so we can use $ in the module and at compile time webpack will inject jQuery in the module.
-        'jQuery': 'jquery'
-    })
-];
-
 
 module.exports = (env) => { // this is a function so we can accept parameters here.
     const {ifProd} = getIfUtils(env); // returns some functions which we can then invoke
@@ -68,7 +48,24 @@ module.exports = (env) => { // this is a function so we can accept parameters he
                 }
             ]
         },
-        plugins
+        plugins: removeEmpty([ // we need to wrap the plugins with removeEmpty because
+            // webpack doesn't like an empty plugin (CommonsChunkPlugin is only going to be available in prod mode and will be empty in non prod mode)
+
+            // plugins
+            // with plugins we create a new instance.
+            ifProd(new webpack.optimize.CommonsChunkPlugin({ name: 'vendor' })), // extracting vendor component and creating vendor.js file.
+            new webpack.DefinePlugin({ // define plugin allows us to define javascript variables in the resulting bundle as global variables that we can access.
+                'process.env': { // we are asking webpack to create a global javascript object 
+                    NODE_ENV: `"${process.env.NODE_ENV} || 'development'"` // a property
+                },
+                // IS_PRODUCTION: !isDevelopment, // by doing this we can now use IS_PRODUCTION in our own code as this will be available as a property of a global object 'process.env'
+                // IS_DEVELOPMENT: isDevelopment   // can be used in code as process.env.IS_DEVELOPMENT
+            }),
+            new webpack.ProvidePlugin({ // with provide plugin we can assign a variable which it will watch for in our code and if it isn't define anywhere then webpack will inject the value.
+                '$': 'jquery',   // so we can use $ in the module and at compile time webpack will inject jQuery in the module.
+                'jQuery': 'jquery'
+            })
+        ])
 
     });
     return config;
