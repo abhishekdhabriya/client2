@@ -21,7 +21,7 @@ module.exports = (env) => { // this is a function so we can accept parameters he
             publicPath: '/dist/', // webpack uses this path to serve it's in memory bundle.
             // some other loaders uses this path to put font's file and image files.
             // if we don't specify this then webpack assumes to servce up the bundle from / 
-            pathinfo: true
+            pathinfo: true // 
         },
         devtool: ifProd('source-map', 'eval'),
         module: {
