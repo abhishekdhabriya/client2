@@ -1,0 +1,5 @@
+# node_modules/.bin/surge token
+# chmod +x scripts/deploy
+export SURGE_LOGIN=<email>
+export SURGE_TOKEN=<token>
+node_modules/.bin/surge --project dist --domain https://react-boilerplate-adhabriy.surge.sh
