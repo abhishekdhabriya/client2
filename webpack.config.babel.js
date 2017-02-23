@@ -6,6 +6,7 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
+const OfflinePlugin = require('offline-plugin');
 
 const vendor = ['lodash', 'react', 'react-dom', './client.scss']; // just telling webpack what it need to extract and put it in it's own bundle
 
@@ -74,7 +75,7 @@ module.exports = (env) => { // this is a function so we can accept parameters he
             ifProd(new webpack.optimize.CommonsChunkPlugin({ name: ['vendor', 'manifest'] })), // extracting vendor component and creating vendor.js file.
             new webpack.DefinePlugin({ // define plugin allows us to define javascript variables in the resulting bundle as global variables that we can access.
                 'process.env': { // we are asking webpack to create a global javascript object 
-                    NODE_ENV: `"${process.env.NODE_ENV} || 'development'"` // a property
+                    NODE_ENV: ifProd('"production"', '"development') // a property
                 },
                 // IS_PRODUCTION: !isDevelopment, // by doing this we can now use IS_PRODUCTION in our own code as this will be available as a property of a global object 'process.env'
                 // IS_DEVELOPMENT: isDevelopment   // can be used in code as process.env.IS_DEVELOPMENT
@@ -82,7 +83,8 @@ module.exports = (env) => { // this is a function so we can accept parameters he
             new webpack.ProvidePlugin({ // with provide plugin we can assign a variable which it will watch for in our code and if it isn't define anywhere then webpack will inject the value.
                 '$': 'jquery',   // so we can use $ in the module and at compile time webpack will inject jQuery in the module.
                 'jQuery': 'jquery'
-            })
+            }),
+            new OfflinePlugin()
         ])
 
     });

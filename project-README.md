@@ -169,3 +169,7 @@ Long term caching using inline manifest webpack plugin
 manifest webpack plugin will create a common chunk called manifest and it integrates html webpack plugin, this will inline the javascript code in 
 index.html, and basically it's setting the global variables for the mapping.
 
+
+Service workers allows us to work offline
+service workers requires https
+
