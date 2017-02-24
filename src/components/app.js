@@ -1,32 +1,19 @@
-import './app.scss';
-
 import React, { Component } from 'react';
-
+import './app.scss';
+import Header from './containers/Header';
 class AppContainer extends Component {
 
     constructor(props) {
         super(props);
-
-        this._click = this._click.bind(this);
-
-    }
-
-    componentDidMount() {
-        console.log('HEY you!');
     }
 
     render() {
         return (
             <div>
-                <h1>Hey webpack 2 with reducers</h1>
-                <button onClick={this._click}>Click again </button>
+                <h1>Hey webpack 2</h1>
+                <Header/>
             </div>
         );
-    }
-
-    _click() {
-        console.log('this will');
-        console.log('only changing app code');
     }
 }
 export default AppContainer;
