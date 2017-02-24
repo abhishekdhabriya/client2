@@ -11,7 +11,7 @@ module.exports = (config) => {
         basePath: '',
         frameworks: ['mocha', 'chai'],
         files: [testGlob, srcGlob],
-        exclude : ['./src/client/client.js'],
+        exclude : ['./src/index.js'],
         preprocessors: {
             [testGlob]: ['webpack'], // key is the glob that matches the file we want to run through the prepocessor.
             [srcGlob]: ['webpack']  // webpack invokes karma-webpack plugin // plugin then looks in this file for webpack property which refers to the config.

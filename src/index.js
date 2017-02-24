@@ -1,4 +1,4 @@
-import "./client.scss";
+import "./index.scss";
 import ReactDOM from 'react-dom';
 import React from 'react';
 import AppContainer from './components/app';
