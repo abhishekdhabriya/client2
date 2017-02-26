@@ -6,6 +6,7 @@ import { createStore, applyMiddleware } from 'redux';
 import ReduxPromise from 'redux-promise';
 import AppContainer from './components/app';
 import reducers from './reducers'; // if reducers is a folder then by default it will look for index.js file
+import { BrowserRouter, Route} from 'react-router-dom';
 import { install as offlineInstall } from 'offline-plugin/runtime';
 
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
@@ -15,7 +16,9 @@ ReactDOM.render(
     // Provider is a higher order component that attaches the redux store to our react container components.
     // Provider component accepts our store as a props and wraps our container component.    
     <Provider store={store}>
-        <AppContainer />
+        <BrowserRouter>
+            <Route exact path="/" component={AppContainer} />
+        </BrowserRouter>
     </Provider>
     , document.getElementById('mount'));
 // process.env.NODE_ENV is set in webpack configuration
