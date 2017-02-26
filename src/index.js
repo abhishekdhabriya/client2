@@ -9,8 +9,12 @@ import reducers from './reducers'; // if reducers is a folder then by default it
 import { BrowserRouter, Route} from 'react-router-dom';
 import { install as offlineInstall } from 'offline-plugin/runtime';
 
+
+
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
 const store = createStoreWithMiddleware(reducers);
+
+// console.log($('.nav-item'));
 
 ReactDOM.render(
     // Provider is a higher order component that attaches the redux store to our react container components.

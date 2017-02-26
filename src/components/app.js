@@ -10,7 +10,6 @@ class AppContainer extends Component {
     render() {
         return (
             <div>
-                <h1>Hey webpack 2</h1>
                 <Header/>
             </div>
         );

@@ -3,4 +3,6 @@ $fa-font-path: "~font-awesome/fonts"; // we need to override the font-awesome pa
 // look at _path.scss, so wae asking it to look into node modules folder for the files
 // ~ asking the sass compiler to look into the nod_modules folder
 @import '~font-awesome/scss/font-awesome';
+@import './node_modules/bootstrap/scss/bootstrap';
+
 

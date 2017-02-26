@@ -8,20 +8,20 @@ const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 const OfflinePlugin = require('offline-plugin');
 
-const vendor = ['lodash', 'react', 'react-dom', './index.scss']; // just telling webpack what it need to extract and put it in it's own bundle
+const vendor = ['./node_modules/jquery/dist/jquery', './node_modules/tether/dist/js/tether', './node_modules/bootstrap/dist/js/bootstrap', 'lodash', 'react', 'react-dom', './src/index.scss']; // just telling webpack what it need to extract and put it in it's own bundle
 
 module.exports = (env) => { // this is a function so we can accept parameters here.
     const {ifProd} = getIfUtils(env); // returns some functions which we can then invoke
 
     const config = webpackValidator({
-        context: resolve('src'),
+        // context: resolve('src'),
         entry: {
             vendor: vendor,
-            app: './index.js'
+            app: ['./src/index.js']
         },
         output: {
             path: resolve('dist'),
-            filename: ifProd('bundle.[name].[chunkhash].js', 'bundle.[name].js' ), // [name] is template name, refers to the key proprety of the entry block. like app and vendor
+            filename: ifProd('bundle.[name].[chunkhash].js', 'bundle.[name].js'), // [name] is template name, refers to the key proprety of the entry block. like app and vendor
             // publicPath: '/dist/', // webpack uses this path to serve it's in memory bundle.
             // some other loaders uses this path to put font's file and image files.
             // if we don't specify this then webpack assumes to servce up the bundle from / 
@@ -44,15 +44,15 @@ module.exports = (env) => { // this is a function so we can accept parameters he
                     loader: ExtractTextWebpackPlugin.extract({
                         fallbackLoader: 'style',
                         loader: 'css?sourceMap'
-                    })  
+                    })
                     // loader: 'style!css?sourceMap'  // ! is like and, apply cs loader first and then pipe it through style loader. ? is query string to the loader. asking css loader to enable sourcemaps
                 },
                 {
                     test: /\.scss$/,
-                     loader: ExtractTextWebpackPlugin.extract({
+                    loader: ExtractTextWebpackPlugin.extract({
                         fallbackLoader: 'style',
                         loader: 'css?sourceMap!sass?sourceMap'
-                    })  
+                    })
                     // loader: 'style!css?sourceMap!sass?sourceMap'
                 },
                 {
@@ -61,15 +61,28 @@ module.exports = (env) => { // this is a function so we can accept parameters he
                 }
             ]
         },
+        // externals: {
+        //     // key is module name and value is variable available in external module
+        //     jquery: 'jQuery' // this will let jquery be available as jQuery in our external script.for Bootstrap and                        //foundation to work properly
+        // },
         plugins: removeEmpty([ // we need to wrap the plugins with removeEmpty because
             // webpack doesn't like an empty plugin (CommonsChunkPlugin is only going to be available in prod mode and will be empty in non prod mode)
 
             // plugins
             // with plugins we create a new instance.
             new ExtractTextWebpackPlugin(ifProd('styles.[name].[chunkhash].css', 'styles.[name].css')),
-            ifProd(new InlineManifestWebpackPlugin()), 
+            ifProd(new InlineManifestWebpackPlugin()),
             new HtmlWebpackPlugin({
-                template: './index.html'
+                template: './src/index.html',
+                chunksSortMode: function (a, b) {  //alphabetical order
+                    if (a.names[0] > b.names[0]) {
+                        return -1;
+                    }
+                    if (a.names[0] < b.names[0]) {
+                        return 1;
+                    }
+                    return 0;
+                }
             }),
             new ProgressBarPlugin(),
             ifProd(new webpack.optimize.CommonsChunkPlugin({ name: ['vendor', 'manifest'] })), // extracting vendor component and creating vendor.js file.
@@ -82,7 +95,10 @@ module.exports = (env) => { // this is a function so we can accept parameters he
             }),
             new webpack.ProvidePlugin({ // with provide plugin we can assign a variable which it will watch for in our code and if it isn't define anywhere then webpack will inject the value.
                 '$': 'jquery',   // so we can use $ in the module and at compile time webpack will inject jQuery in the module.
-                'jQuery': 'jquery'
+                'jQuery': 'jquery',
+                "window.jQuery": "jquery",
+                "window.Tether": 'tether',
+                "Tether" : 'tether' // Bootstrap needs tether to load
             }),
             new OfflinePlugin() // allows service workers to cache the files and allow us to work offline.
         ])
