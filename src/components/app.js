@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import './app.scss';
 import Header from './containers/Header';
+// import './app.scss';
+
 class AppContainer extends Component {
 
     constructor(props) {
@@ -10,7 +11,9 @@ class AppContainer extends Component {
     render() {
         return (
             <div>
-                <Header/>
+                <Header />
+                <h1>THis is app home !</h1>
+                
             </div>
         );
     }

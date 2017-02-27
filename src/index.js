@@ -5,8 +5,9 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import ReduxPromise from 'redux-promise';
 import AppContainer from './components/app';
+import SignInContainer from './components/containers/auth/SignIn';
 import reducers from './reducers'; // if reducers is a folder then by default it will look for index.js file
-import { BrowserRouter, Route} from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import { install as offlineInstall } from 'offline-plugin/runtime';
 
 
@@ -21,7 +22,13 @@ ReactDOM.render(
     // Provider component accepts our store as a props and wraps our container component.    
     <Provider store={store}>
         <BrowserRouter>
-            <Route exact path="/" component={AppContainer} />
+        
+            <div>
+                <AppContainer/>
+                {/*<Route exact path="/" component={AppContainer} />*/}
+                <Route path="/signin" component={SignInContainer} />
+            </div>
+
         </BrowserRouter>
     </Provider>
     , document.getElementById('mount'));
